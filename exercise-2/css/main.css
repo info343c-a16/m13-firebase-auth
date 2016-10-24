@@ -1,0 +1,12 @@
+.main {
+	height: 100vh;
+}
+
+.brand-logo, #signout {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#signout:hover {
+	color: #e1e9f7;
+}
