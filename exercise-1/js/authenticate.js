@@ -11,23 +11,6 @@ $(function() {
     };
     firebase.initializeApp(config);
 
-    // Authentication Change: see if a user is already signed in, and redirect
-    var checked;
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (checked !== true) {
-            // Rediriect to index.html if there is a user and the pathname isn't '/'
-            if (user && window.location.pathname != '/') {
-                window.location = '/';
-            }
-
-            // Redirect to sign-in if there is NOT a user and the pathname IS '/'
-            if (!user && window.location.pathname == '/') {
-                window.location = 'sign-in.html';
-            }
-            checked = true;
-        }
-    });
-
     // Sign Up: Function to create account on firebase, then redirect to index.html
     var signUp = function() {
         // Get email, password, and display name
@@ -88,5 +71,23 @@ $(function() {
     $('#log-out').on('click', function() {
         signOut();
     });
+
+    // Authentication Change: see if a user is already signed in, and redirect
+    var checked;
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (checked !== true) {
+            // Rediriect to index.html if there is a user and the pathname isn't '/'
+            if (user && window.location.pathname != '/') {
+                window.location = '/';
+            }
+
+            // Redirect to sign-in if there is NOT a user and the pathname IS '/'
+            if (!user && window.location.pathname == '/') {
+                window.location = 'sign-in.html';
+            }
+            checked = true;
+        }
+    });
+
 
 });

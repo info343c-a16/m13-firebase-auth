@@ -1,10 +1,23 @@
 # Module 13: Authentication with Firebase
 
 ## Overview
-In many web applications you build, you may want to have users create (or login into) an account. Whether it's a social media application or a collaborative research tool, authentication methods can be used to restrict users, show different data to different people, or connect users. In this learning module, you'll learn how to use Firebase's Authentication methods to create and log into accounts for your application.
+In many web applications you build, you may want to have users create (or log into) an account. Whether it's a social media application or a collaborative research tool, authentication methods can be used to restrict user access, show different data to different people, or connect users. In this learning module, you'll learn how to use Firebase's Authentication methods to create and log into accounts for your application.
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+**Contents**
+
+- [Resources](#resources)
+- [Set up](#set-up)
+- [Promises](#promises)
+- [Creating Users](#creating-users)
+  - [Updating User Information](#updating-user-information)
+- [Logging Users In](#logging-users-in)
+- [Logging Users Out](#logging-users-out)
+- [Listening to Authentication Changes](#listening-to-authentication-changes)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Resources
 - [Managing Users in Firebase](https://firebase.google.com/docs/auth/web/manage-users)
@@ -17,14 +30,14 @@ In your firebase console, you'll begin by navigating to the **Authentication** t
 
 ![firebase authentication sidebar menu](imgs/authentication-tab.png)
 
-From that tab, you'll be able to see the users who have accounts for your application. Before using a specified method, you'll need to enable it in the firebase console, which is within the _Sign In Method_ tab of your Authentication dashboard:
+From that tab, you'll be able to see the users who have accounts for your application. Before using a specified authentication approach, you'll need to enable it in the firebase console, which is within the _Sign In Method_ tab of your Authentication dashboard:
 
 ![firebase enable email authentication](imgs/enable-email-method.png)
 
-Simply click on the method of your choice and use the switch in the dialog box to **Enable** the method of your choice. For this learning module, we'll cover using email + password authentication. Once you have enable this setting on Firebase, you'll be ready to build authentication into your JavaScript files.
+Simply click on the method of your choice, and use the switch in the dialog box to **Enable** the method. For this learning module, we'll cover using email + password authentication. Once you have enable this setting on Firebase, you'll be ready to build authentication into your JavaScript files.
 
 ## Promises
-Before diving into the process for authentication users, it's important to review the concept of **JavaScript Promises**. As described in [Module 11](https://github.com/info343c-a16/m11-reading-data#method-chaining), many JavaScript methods return _Promise objects_, which are tasks which may not have completed yet. Promises provide an alternative structure to the _callback function_, for example:
+Before diving into the process for authenticating users, it's important to review the concept of **JavaScript Promises**. As described in [Module 11](https://github.com/info343c-a16/m11-reading-data#method-chaining), many JavaScript methods return _Promise objects_, which are tasks which may not have completed yet. Promises provide an alternative structure to the _callback function_, for example:
 
 ```javascript
 // Request data, and process it in a callback function
@@ -62,7 +75,7 @@ firebasePromise.then(function(data){
 });
 ```
 
-Firebase will return an error if you've made a process that it is unable to process, such as signing up with an email address that already exists. In order to use Firebase's authentication methods, we'll use promises to wait for requests to complete, and then process the data returned by Firebase.
+Firebase will return an error if you've made a request that it is unable to process, such as signing up with an email address that already exists. In order to use Firebase's authentication methods, we'll use promises to wait for requests to complete, and then process the data returned by Firebase.
 
 ## Creating Users
 The first thing we'll learn how to do is create users for web applications. Once you have loaded the Firebase library in your `index.html` file, and initialized Firebase with your configuration, you'll have access to the `firebase.auth()` function, which returns an authorization object that you'll use throughout your application. The object returned by `firebase.auth()` has a useful (though verbosely named) `signInWithEmailAndPassword` method that accepts an email and a password as parameters, and creates a user account on Firebase. We'll want to perform actions _after_ the account is created, so we'll need to leverage Promises:
@@ -78,6 +91,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(function(us
     // Do something after the user has been created
 });
 ```
+
+Once the function completes, you should be able to see the new user's account on Firebase, and the user will be logged in.
 
 ### Updating User Information
 Once your user has been created, you may want to set two additional properties of your user: their `displayName` and `photoURL` (this is the _only information_ that you can store with your users). The `user` object returned by the `createUserWithEmailAndPassword` promise has an `updateProfile` method that allows you to set the `displayName` and `photoURL` property of your user. Note, because this method is interacting with Firebase, we'll want to wait for it to finish (i.e., it _returns a promise_):
@@ -131,7 +146,9 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 ```
 
-This is helpful for checking if the user is _already logged in_ and need to be redirected. Unfortunately, this method will fire _as soon as the state changes_, which might conflict with other actions we are trying to take when a user logs into our application. To avoid this, we can apply some simple JavaScript logic to prevent any interference:
+That method will execute when the authentication is first established on page load, and when the state of the authentication changes. This is helpful for checking if the user is _already logged in_ when the page loads.
+
+Unfortunately, this method will fire _as soon as the state changes_, which might conflict with other actions we are trying to take when a user logs into our application. To avoid this, we can apply some simple JavaScript logic to prevent any interference:
 
 ```javascript
 var checked; // create an undefined object
@@ -146,3 +163,5 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 ```
+
+To practice building an application that requires user authentication, see [exercise-1](exercise-1).
