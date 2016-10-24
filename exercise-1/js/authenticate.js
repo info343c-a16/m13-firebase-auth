@@ -68,8 +68,9 @@ $(function() {
     // Sign out: Function to log a user out of firebase
     var signOut = function() {
         // Sign out, then redirect
-        firebase.auth().signOut();
-        window.location = 'sign-up.html';
+        firebase.auth().signOut().then(function() {
+            window.location = 'sign-up.html';
+        });
     };
 
     // Assign event lister to form submission
