@@ -1,0 +1,46 @@
+/* You'll probably want to add some styles here */
+
+.nav-wrapper h2 {
+    font-weight: 100;
+    margin-top: 0px;
+    padding-top: 5px;
+    padding-left: 5px;
+    display: inline-block;
+}
+
+nav {
+    margin-bottom: 25px;
+    background-color: #4db6ac;
+}
+
+form.authenticate {
+    border: 1px solid #d3d3d3;
+    padding: 20px !important;
+    border-radius: 3px;
+}
+
+.sign-in {
+    float: right;
+}
+
+.sign-in button {
+    margin-left: 10px;
+}
+
+#chat-button {
+    float: right;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: #4db6ac !important;
+}
+
+.user {
+    font-weight: bold;
+}
+
+#chat-box {
+    border: 1px solid #d3d3d3;
+    padding: 20px;
+    border-radius: 20px;
+}
