@@ -26,7 +26,7 @@ Following the instructions in this learning module, set up (and connect to) a Fi
 - Enable Email and Password authentication for your project
 
 **In Your Scripts**
-- In your `authentication.js` file, use the project configuration information to initialize a connection to Firebase
+- In your `authenticate.js` file, use the project configuration information to initialize a connection to Firebase
 
 Note, each `*.html` file is already reading in `authenticate.js`, `main.js`, and the `firebase` script via CDN. Materialize is also loaded, though feel free to load a different CSS framework of your choice.
 
