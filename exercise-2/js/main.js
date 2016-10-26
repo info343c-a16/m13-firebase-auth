@@ -47,9 +47,12 @@ $(function() {
 					userRef.child(result.user.uid).set({
 						"name": result.user.displayName,
 						"photoURL": result.user.photoURL
-					});
-				}
-				window.location = "./views/user.html"
+                    }).then(function() {
+				        window.location = "./views/user.html"
+                    });
+                } else {
+				    window.location = "./views/user.html"
+                }
 			})
 		})
 	}
