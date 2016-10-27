@@ -25,7 +25,7 @@ $(function() {
                 user.updateProfile({
                     displayName: displayName
                 }).then(function() {
-                    window.location = '/';
+                    window.location = './';
                 });
             }).catch(function(error) {
                 alert(error.message);
@@ -41,7 +41,7 @@ $(function() {
         // Authenticate using email and password, then redirect
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(function() {
-                window.location = '/';
+                window.location = './';
             })
             .catch(function(error) {
                 alert(error);
@@ -52,7 +52,7 @@ $(function() {
     var signOut = function() {
         // Sign out, then redirect
         firebase.auth().signOut().then(function() {
-            window.location = 'sign-up.html';
+            window.location = './sign-up.html';
         });
     };
 
@@ -77,13 +77,13 @@ $(function() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (checked !== true) {
             // Rediriect to index.html if there is a user and the pathname isn't '/'
-            if (user && window.location.pathname != '/') {
-                window.location = '/';
+            if (user && window.location.pathname.indexOf("sign") != -1) {
+                window.location = './';
             }
 
             // Redirect to sign-in if there is NOT a user and the pathname IS '/'
-            if (!user && window.location.pathname == '/') {
-                window.location = 'sign-in.html';
+            if (!user && window.location.pathname.indexOf("sign") == -1) {
+                window.location = './sign-in.html';
             }
             checked = true;
         }
